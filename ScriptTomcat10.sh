@@ -12,7 +12,7 @@ apt-get update -y
 apt-get upgrade -y
 
 #Instalación de la versión de java necesaria
-apt-get install openjdk-17-jre -y
+apt-get install openjdk-17-jdk -y
 
 # Descaragr el archivo de instalación de Tomcat
 cd /tmp
