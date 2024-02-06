@@ -207,7 +207,30 @@ Resources:
           # Permite tráfico en el puerto
           ufw allow 8080
 
-          # Esta tiene que serla ultima instrucción
+          # Descargamos la aplicación java que queremos utilizar
+          apt install git
+
+          folder=/home/ubuntu/holamundo
+          git clone https://github.com/DavidHormigoRamirez/springholamundo.git $folder
+
+          # Cambiamos a la carpeta en la que se encuentra la aplicación 
+          # y le damos permisos de ejecución a gradlew par poder compilarla
+          cd /home/ubuntu/holamundo
+          chmod +x gradlew
+
+          # Compilamos la aplicación con Gradle para obtener un fichero en formato WAR
+          ./gradlew war
+
+          # Movemos la aplicación compilada a la carpeta de despliegue de Tomcat
+          cd ./build/libs
+
+          archivo=`ls`
+
+          chmod +x $archivo
+
+          mv $archivo /opt/tomcat/webapps/hola.war
+
+          # Esta tiene que ser la ultima instrucción
           /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource EC2Instance --region ${AWS::Region}
       Tags:
         - Key: Name
