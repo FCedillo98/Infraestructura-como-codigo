@@ -24,21 +24,32 @@ El archivo YAML **main.yml** describe la plantilla para la creación de una inst
 - con un grupo de seguridad que permite conexiones de entrada por los puertos 22 y 8080.
 - de nombre TomcatServer
 
+
+El nuevo script crea una pila con una instancia de EC2 usando un nuevo fichero YAML como plantilla 
+Desde **ubuntu.yml** conmfiguramos la creación de la instancia y el grupo de seguridad. 
+
+Incluye un script Bash para:
+  - instalar Tomcat
+  - descargar usando 'git clone' una aplicacion java
+  - compilarla a un fichero WAR usando Gradle 
+  - desplegar la aplicación, moviendo dicho fichero a la carpeta webapps de Tomcat
+
 ---
 
 
 # Script creación/actualización de una pila en AWS
 
-El script **deploy.bat** crea una pila llamada Tomcat en la región us-east-1 con la instancia y grupo de seguridad descritos en la plantilla **main.yml** usando AWS CLI.
+El script **deploy.bat** crea una pila llamada Tomcat en la región us-east-1 con la instancia y grupo de seguridad descritos en la plantilla **ubuntu.yml** usando AWS CLI.
+El script **deploy.sh** crea una pila igual al anterior. Devuleve un output que es tomado por el script para obtener la dirección de la consola de administración de Tomcat.
 
-También es usado para actualizar la pila.
+También son usados para actualizar la pila.
 
 ---
-
 
 # Script para eliminar una pila en AWS
 
 El script **delete-stack.bat** elimina la pila y la instancia creados con el script **deploy.bat** usando AWS CLI.
+El script **delete-stack.sh** elimina la pila de la misma forma que al anterior.
 
 
 
