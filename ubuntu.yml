@@ -253,6 +253,23 @@ Resources:
       Tags:
         - Key: Name
           Value: TomcatSecurityGroup
+  HolaMundoApp:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ApplicationName: HolaMundo
+      ComputePlatform: Server
+  HolaMundoDeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      ApplicationName: HolaMundo
+      DeploymentGroupName: ImplementacionHolaMundo
+      ServiceRoleArn:  "arn:aws:iam::704688556368:role/LabRole"
+      DeploymentConfigName: CodeDeployDefault.OneAtATime
+      Ec2TagFilters: 
+        - Key: Name 
+          Value: TomcatServer
+          Type: KEY_AND_VALUE 
+    DependsOn: HolaMundoApp        
 Outputs:
   IpPublico:
     Description: Direccion de la consola de administracion de Tomcat
